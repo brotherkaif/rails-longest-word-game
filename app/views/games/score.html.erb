@@ -1,2 +1,13 @@
-<h1><%= @message%></h1>
-<%= link_to "Play again", "new" %>
+
+<div id="page-content">
+  <h1 class="display-1">COUNTDOWN</h1>
+  <h2>Your word:</h2>
+  <ul class="list-inline">
+    <% @split_attempt.each do |letter| %>
+    <li class="list-inline-item text-center align-middle"><%= letter %></li>
+    <% end %>
+  </ul>
+
+  <p class="lead"><%= @message%></p>
+  <%= link_to "Play again", "new" %>
+</div>
