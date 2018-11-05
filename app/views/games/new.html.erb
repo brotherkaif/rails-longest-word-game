@@ -1,0 +1,15 @@
+<h1>COUNTDOWN</h1>
+<p>Create a word out of the following letters...</p>
+<ul>
+  <% @grid.each do |letter| %>
+  <li><%= letter %></li>
+  <% end %>
+</ul>
+
+<form action="score" class="form-inline">
+    <div class="form-group">
+      <input type="text" class="form-control" name="user_answer">
+      <input type="hidden" name="grid" value="<%= @grid.join %>">
+    </div>
+    <button type="submit" class="btn btn-primary">Guess!</button>
+</form>
