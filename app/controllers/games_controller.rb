@@ -8,13 +8,24 @@ class GamesController < ApplicationController
   end
 
   def score
-    dic_return = load_json(params["user_answer"])
-    dic_check = dic_return["found"]
-
     split_attempt = params["user_answer"].upcase.split("")
     split_grid = params["grid"].split("")
     letter_check = split_attempt.all? { |letter| split_attempt.count(letter) <= split_grid.count(letter) }
+    
+    dic_return = load_json(params["user_answer"])
+    dic_check = dic_return["found"]
 
+    @message = game_state(dic_check, letter_check)
+  end
+
+  def load_json(input)
+    file_path = "https://wagon-dictionary.herokuapp.com/#{input}"
+    json_file = open(file_path).read
+
+    return JSON.parse(json_file)
+  end
+
+  def game_state(dic_check, letter_check)
     if letter_check && dic_check
       score = params["user_answer"].length * 100
       @message = "Congratulations, you scored #{score} points!"
@@ -27,10 +38,4 @@ class GamesController < ApplicationController
     end
   end
 
-  def load_json(input)
-    file_path = "https://wagon-dictionary.herokuapp.com/#{input}"
-    json_file = open(file_path).read
-
-    return JSON.parse(json_file)
-  end
 end
